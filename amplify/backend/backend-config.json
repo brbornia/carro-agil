@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"carroagil6a8123a2": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

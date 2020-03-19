@@ -1,0 +1,22 @@
+{
+    "aws": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-carro-agil-aws-175531-authRole",
+            "UnauthRoleArn": "arn:aws:iam::092649689751:role/amplify-carro-agil-aws-175531-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::092649689751:role/amplify-carro-agil-aws-175531-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-carro-agil-aws-175531-deployment",
+            "UnauthRoleName": "amplify-carro-agil-aws-175531-unauthRole",
+            "StackName": "amplify-carro-agil-aws-175531",
+            "StackId": "arn:aws:cloudformation:us-west-2:092649689751:stack/amplify-carro-agil-aws-175531/ab61b740-6941-11ea-8d38-0abfc2a88834",
+            "AmplifyAppId": "d1saa1q6kz6v82"
+        },
+        "categories": {
+            "auth": {
+                "carroagil6a8123a2": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            }
+        }
+    }
+}
