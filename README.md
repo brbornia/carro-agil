@@ -1,27 +1,30 @@
 # CarroAgil
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 9.0.6.
 
-## Development server
+## Primeira execução
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Executar `npm install --save @angular/cli` para instalar as dependencias do projeto, uma única vez.
 
-## Code scaffolding
+## Servidor de desenvolvimento
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Executar `ng serve` Para rodar a aplicação, que estará acessível em `http://localhost:4200/`.
 
-## Build
+## Compilação
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Executar `ng build` para compilar o projeto. Os artefatos estarão disponíveis no diretório `dist/`.
 
-## Running unit tests
+## Deploy
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Para subir a aplicação na aws, executar `aws s3 cp dist/carro-agil s3://<seu s3 bucket>/ --recursive`.
 
-## Running end-to-end tests
+## Aplicação demo
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Uma aplicação de exemplo econtra-se em execução na aws, a poderá ser acessada em `https://carro-agil.bornia.net/`
 
-## Further help
+## Componentes arquiteturais deste demo
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Route53: configuração do domínio bornia.net/
+CloudFront: cdn para acesso mais rápido
+S3: armazenamento do aplicação Angular
+Cognito: para a autenticação da aplicação, federada com login via Google.
