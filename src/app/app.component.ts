@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
-import {AuthConfig, OAuthService} from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+import {AuthService} from './auth.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-const authConfig: AuthConfig = {
-  issuer: 'https://cognito-idp.us-west-2.amazonaws.com/us-west-2_Seg2U3Htb',
-  redirectUri: window.location.origin + '',
-  clientId: '5992cmk32lntem9urk254f9htp',
-  scope: 'openid profile email',
-  showDebugInformation: true,
-  responseType: 'token',
-  oidc: true,
-  strictDiscoveryDocumentValidation: false,
-  disableAtHashCheck: true // at_hash isn't required for authentication code flow
-};
+export interface Car {
+  id: number;
+  marca: string;
+  modelo: string;
+  ano: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -21,32 +17,29 @@ const authConfig: AuthConfig = {
 })
 export class AppComponent {
   title = 'carro-agil';
+  cars: Car[];
 
-  constructor(private oauthService: OAuthService) {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocument().then((doc) => {
-      this.oauthService.tryLogin();
-      // tslint:disable-next-line:no-console
-      console.debug('discovery succeeded', doc);
-    });
-
-    // this.oauthService.initImplicitFlow();
-  }
+  constructor(private auth: AuthService, private http: HttpClient) { }
 
   get givenName() {
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) {
-      return null;
+    const name = this.auth.givenName();
+    if (name && (!this.cars || this.cars.length === 0) ){
+      this.getCars();
     }
-    console.debug('claims', claims);
-    const nameKey = 'name';
-    return claims[nameKey];
+    return name;
   }
 
   login() {
-    this.oauthService.initImplicitFlow();
-    // this.oauthService.tryLogin();
+    this.auth.login();
+  }
+
+  getCars() {
+    const  url = 'https://fy1ozme5l1.execute-api.us-west-2.amazonaws.com/HBSIS/';
+    this.http.get<Car[]>( url, {headers: {Authorization: this.auth.getAccessToken()}} )
+      .subscribe(resp => {
+        this.cars = resp;
+        console.log(this.cars);
+      });
   }
 
 }

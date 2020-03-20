@@ -6,6 +6,12 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {AuthService} from './auth.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { registerLocaleData } from '@angular/common';
+import localeBr from '@angular/common/locales/br';
+registerLocaleData(localeBr, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -15,9 +21,10 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     OAuthModule.forRoot(),
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
