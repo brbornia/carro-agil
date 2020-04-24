@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AuthService} from './auth.service';
+import {AuthService} from './services/auth.service';
+import {SpinnerService} from './services/spinner.service';
 
 export interface Car {
   id: number;
@@ -21,7 +22,10 @@ export class AppComponent {
   displayedColumns: string[] = ['id', 'marca', 'modelo', 'ano'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
-  constructor(private auth: AuthService, private http: HttpClient) { }
+  constructor(
+    private auth: AuthService,
+    private http: HttpClient,
+    public spinnerService: SpinnerService) { }
 
   get givenName() {
     const name = this.auth.givenName();

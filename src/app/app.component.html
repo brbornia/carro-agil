@@ -11,8 +11,12 @@
 
   <div *ngIf="givenName">
     <p>Olá {{givenName}}</p>
-    <p>Aqui estão os veículos disponíveis para locação:</p>
-    <div>
+    <div *ngIf="spinnerService.visibility | async">
+      <p>Carregando veículos</p>
+      <mat-progress-spinner color="accent" mode="indeterminate" ></mat-progress-spinner>
+    </div>
+    <div *ngIf="cars && cars.length > 0">
+      <p>Aqui estão os veículos disponíveis para locação:</p>
       <mat-table [dataSource]="cars" class="mat-elevation-z8">
         <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
           <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
