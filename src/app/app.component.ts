@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {AuthService} from './auth.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthService} from './auth.service';
 
 export interface Car {
   id: number;
@@ -18,12 +18,14 @@ export interface Car {
 export class AppComponent {
   title = 'carro-agil';
   cars: Car[];
+  displayedColumns: string[] = ['id', 'marca', 'modelo', 'ano'];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
 
   constructor(private auth: AuthService, private http: HttpClient) { }
 
   get givenName() {
     const name = this.auth.givenName();
-    if (name && (!this.cars || this.cars.length === 0) ){
+    if (name && (!this.cars || this.cars.length === 0) ) {
       this.getCars();
     }
     return name;
@@ -38,7 +40,7 @@ export class AppComponent {
     this.http.get<Car[]>( url, {headers: {Authorization: this.auth.getAccessToken()}} )
       .subscribe(resp => {
         this.cars = resp;
-        console.log(this.cars);
+        console.log('response' + this.cars);
       });
   }
 

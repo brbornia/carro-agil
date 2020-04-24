@@ -1,40 +1,26 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <h1>Carro Ágil</h1>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    Carro Ágil
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="padding: 10px">
+  <div *ngIf="!givenName">
+    <button mat-raised-button (click)="login()">Login</button>
+  </div>
+
+  <div *ngIf="givenName">
+    <p>Olá {{givenName}}</p>
+    <p>Aqui estão os veículos disponíveis para locação:</p>
+    <div>
+      <mat-table [dataSource]="cars" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+      </mat-table>
     </div>
   </div>
-</nav>
-
-<div *ngIf="!givenName">
-  <button (click)="login()">Login</button>
-</div>`
-
-<div *ngIf="givenName">
-  <p>Olá {{givenName}}</p>
-  <p>Aqui estão os veículos disponíveis para locação:</p>
-<!--  <button (click)="getCars()">Cars</button>-->
-  <div *ngIf="cars && cars.length > 0">
-  <table mdbTable >
-    <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">marca</th>
-      <th scope="col">modelo</th>
-      <th scope="col">ano</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr mdbTableCol *ngFor="let car of cars">
-      <th scope="row">{{car.id}}</th>
-      <td>{{car.marca}}</td>
-      <td>{{car.modelo}}</td>
-      <td>{{car.ano}}</td>
-    </tr>
-    </tbody>
-  </table>
-  </div>
 </div>
-
-
-<!--<router-outlet></router-outlet>-->
